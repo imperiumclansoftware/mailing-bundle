@@ -1,0 +1,24 @@
+{
+    "name": "ics/mailing-bundle",
+    "description": "A new bundle for symfony",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "version": "0.0.1",
+    "autoload": {
+        "psr-4": {
+            "ICS\\MailingBundle\\": "/src"
+        }
+    },
+    "require": {
+        "symfony/config": "^5",
+        "symfony/framework-bundle": "^5",
+        "symfony/dependency-injection": "^5",
+        "symfony/routing": "^5",
+        "symfony/form": "^5",
+        "doctrine/orm": "^2.8",
+        "symfony/mailer": "^5",
+        "friendsofsymfony/ckeditor-bundle": "^2.3",
+        "twig/twig": "^3.3",
+        "symfony/doctrine-bridge": "^5.4"
+    }
+}
