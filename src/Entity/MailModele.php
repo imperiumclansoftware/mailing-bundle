@@ -1,6 +1,8 @@
 <?php
 namespace ICS\MailingBundle\Entity;
 
+use Twig\Node\Expression\NameExpression;
+use Twig\Environment;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -64,8 +66,9 @@ class MailModele
 
     public function __construct()
     {
-        $this->vars = new ArrayCollection();
+        $this->vars = [];
     }
+    
     /**
      * Get the value of subject
      */ 
@@ -201,7 +204,14 @@ class MailModele
      */ 
     public function setVars($vars)
     {
-        $this->vars = $vars;
+        if($vars == null)
+        {
+            $this->vars = [];
+        }
+        else
+        {
+            $this->vars = $vars;
+        }
         return $this;
     }
 
@@ -251,19 +261,25 @@ class MailModele
 
     public function addVar($name)
     {
-        if(!$this->vars->contains($name))
+        if($this->vars == null)
         {
-            $this->vars->add($name);
+            $this->vars = [];
         }
 
-        
+        if(!in_array($name,$this->vars))
+        {
+            $this->vars[] = $name;
+        }
     }
 
     public function removeVar($name)
     {
-        if($this->vars->contains($name))
+        foreach($this->vars as $key => $var)
         {
-            $this->vars->remove($name);
+            if($var == $name)
+            {
+                unset($this->vars[$key]);
+            }
         }
         
         
@@ -271,7 +287,35 @@ class MailModele
 
     public function clearVars()
     {
-        $this->vars = new ArrayCollection();
+        $this->vars =[];
         
+    }
+
+        
+    public function updateVars(Environment $twig)
+    {
+        $template = $twig->load($this->getTemplate()->getTwig())->getSourceContext();
+        $nodes=$twig->parse($twig->tokenize($template));
+        foreach($this->parseTwigNodes($nodes) as $var)
+        {
+            $this->addVar($var);
+        }
+    }
+
+    private function parseTwigNodes($nodes)
+    {
+        $vars=[];
+        foreach($nodes as $node)
+        {
+            if($node instanceof NameExpression)
+            {
+                $vars[]=$node->getAttribute('name');   
+            }
+            else
+            {
+                $vars = array_merge($vars,$this->parseTwigNodes($node));
+            }
+        }
+        return $vars;
     }
 }

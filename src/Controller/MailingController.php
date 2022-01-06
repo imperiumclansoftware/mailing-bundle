@@ -26,23 +26,6 @@ class MailingController extends AbstractController
         ]);
     }
 
-    function parseTwigNodes($nodes)
-    {
-        $vars=[];
-        foreach($nodes as $node)
-        {
-            if($node instanceof NameExpression)
-            {
-                $vars[]=$node->getAttribute('name');   
-            }
-            else
-            {
-                $vars = array_merge($vars,$this->parseTwigNodes($node));
-            }
-        }
-        return $vars;
-    }
-
     /**
     * @Route("/add",name="ics-mailing-model-add")
     * @Route("/edit/{model}",name="ics-mailing-model-edit")
@@ -54,31 +37,20 @@ class MailingController extends AbstractController
             $model=new MailModele();
         }
 
-        dump($model);
         $form = $this->createForm(MailModeleType::class,$model);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            
             $model = $form->getData();
-            $em->persist($model);
-            $em->flush();
-
-            $model->clearVars();
-            // Ajout des variables du template
-            $template = $twig->load($model->getTemplate()->getTwig())->getSourceContext();
-            $nodes=$twig->parse($twig->tokenize($template));
-            foreach($this->parseTwigNodes($nodes) as $var)
-            {
-                $model->addVar($var);
-            }
+            $model->updateVars($twig);
             
             $em->persist($model);
             $em->flush();
-            dump($model);
+            
             $this->addFlash('success',sprintf('The mail modele <b>%s</b> was saved succesfully',$model->getTitle()));
-            // return $this->redirectToRoute('ics-mailing-homepage');
+            
+            return $this->redirectToRoute('ics-mailing-homepage');
         }
 
         return $this->render('@Mailing/edit.html.twig',[
