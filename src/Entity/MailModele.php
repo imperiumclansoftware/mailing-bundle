@@ -1,11 +1,13 @@
 <?php
 namespace ICS\MailingBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(schema="mailing")
+ * @ORM\HasLifecycleCallbacks()
  */
 class MailModele
 {
@@ -44,24 +46,21 @@ class MailModele
 
     private $logo;
     /**
-     * @ORM\ManyToOne(targetEntity=MailTemplate::class)
+     * @ORM\ManyToOne(targetEntity=MailTemplate::class, cascade={"persist"})
      *
      * @var MailTemplate
      */
     private $template;
      /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @var string
      */
     private $sender;
     /**
      * @ORM\Column(type="json", nullable=false)
-     * 
-     * @var ArrayCollection
      */
     private $vars;
-
 
     public function __construct()
     {
@@ -203,7 +202,6 @@ class MailModele
     public function setVars($vars)
     {
         $this->vars = $vars;
-
         return $this;
     }
 
@@ -257,6 +255,8 @@ class MailModele
         {
             $this->vars->add($name);
         }
+
+        
     }
 
     public function removeVar($name)
@@ -265,10 +265,13 @@ class MailModele
         {
             $this->vars->remove($name);
         }
+        
+        
     }
 
-    public function clearVar()
+    public function clearVars()
     {
         $this->vars = new ArrayCollection();
+        
     }
 }

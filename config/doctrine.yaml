@@ -1,0 +1,9 @@
+doctrine:
+    orm:
+        mappings:
+            MailingBundle:
+                is_bundle: true
+                type: annotation
+                dir: 'src/Entity'
+                prefix: 'ICS\MailingBundle\Entity'
+                alias: Mailing
