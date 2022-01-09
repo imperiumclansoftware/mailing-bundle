@@ -3,6 +3,7 @@ namespace ICS\MailingBundle\Entity;
 
 use Twig\Node\Expression\NameExpression;
 use Twig\Environment;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -63,6 +64,18 @@ class MailModele
      * @ORM\Column(type="json", nullable=false)
      */
     private $vars;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $text;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $priority = Email::PRIORITY_NORMAL;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $replyTo;
 
     public function __construct()
     {
@@ -294,11 +307,15 @@ class MailModele
         
     public function updateVars(Environment $twig)
     {
+        $internals = ['title','content','signature','logo'];
         $template = $twig->load($this->getTemplate()->getTwig())->getSourceContext();
         $nodes=$twig->parse($twig->tokenize($template));
         foreach($this->parseTwigNodes($nodes) as $var)
         {
-            $this->addVar($var);
+            if(!in_array($var,$internals))
+            {
+                $this->addVar($var);
+            }
         }
     }
 
@@ -317,5 +334,84 @@ class MailModele
             }
         }
         return $vars;
+    }
+
+    public function renderVars(array $vars=[])
+    {
+        $finalVars = [];
+        foreach($this->vars as $var)
+        {
+            $finalVars[$var]='';
+        }
+
+        $finalVars['title']=$this->getTitle();
+        $finalVars['logo']=$this->getLogo();
+
+        foreach($vars as $key => $var)
+        {
+            $finalVars[$key] = $var;
+        }
+
+        return $finalVars;
+    }
+
+    /**
+     * Get the value of text
+     */ 
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set the value of text
+     *
+     * @return  self
+     */ 
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of priority
+     */ 
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Set the value of priority
+     *
+     * @return  self
+     */ 
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of replyTo
+     */ 
+    public function getReplyTo()
+    {
+        return $this->replyTo;
+    }
+
+    /**
+     * Set the value of replyTo
+     *
+     * @return  self
+     */ 
+    public function setReplyTo($replyTo)
+    {
+        $this->replyTo = $replyTo;
+
+        return $this;
     }
 }

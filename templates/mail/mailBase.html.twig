@@ -1,13 +1,53 @@
+{% block mailCss %}
+    <style>
+        
+        .title {
+            background-color: {{ bgColor|default('#000') }};
+            color: {{ textColor|default('#fff') }};
+            margin: 0px;
+            padding: 15px;
+        }
+
+        .borderContent {
+            border: solid 1px {{ bgColor|default('#000') }};
+            background-color: {{ bgColor|default('#000') }};
+            margin: 0px;
+            padding:15px;
+        }
+
+        .content {
+         
+            background-color: #fff;
+            margin:15px;
+            margin: auto;
+            width: 60%;
+            padding:15px;
+            border-radius: 5px;
+         
+        }
+
+        hr {
+            border-color: {{ bgColor }};
+        }
+
+    </style>    
+{% endblock %}
+
 {% block mailTitle %}
-    <h1>Titre de mail</h1>
+    <h1 class="title">
+        {% if logo %}
+            <img src="{{ path(logo) }}" width="64px;"/>
+        {% endif %}
+        {{ title }}
+    </h1>
 {% endblock %}
 
 {% block mailContent %}
-    <div class="">
-        {{ logo }}
-        Corps du message
-        {{ title }}
-        <hr/>
-        {{ signature }}
+    <div class="borderContent">
+        <div class="content">
+            {{ content|raw }}
+            <hr/>
+            {{ signature|raw }}
+        </div>
     </div>
 {% endblock %}
