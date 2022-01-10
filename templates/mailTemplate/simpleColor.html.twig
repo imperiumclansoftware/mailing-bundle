@@ -1,0 +1,49 @@
+<style>
+    body {
+        background-color: {{bgColor|default('#000')}}
+		;
+		color: {{textColor|default('#fff')}}
+		;
+    }
+	.title {
+		margin: 0;
+		width: 60%;
+		padding: 15px;
+	}
+
+	.borderContent {
+		
+
+		margin: auto;
+		width: 60%;
+		padding: 15px;
+	}
+
+	.content {
+
+		background-color: #fff;
+		color: #000;
+		padding: 15px;
+	}
+
+	hr {
+		border-color: {{bgColor}}
+		;
+	}
+</style>
+<body>
+	<div class="borderContent">
+		<h1 class="title">
+			{% if logo %}
+				<img src="{{ path(logo) }}" width="64px;"/>
+			{% endif %}
+			{{ title }}
+		</h1>
+		<div class="content">
+			{{ content|raw }}
+			<hr/>
+			{{ signature|raw }}
+		</div>
+		<img src="cid:attachement_1" width="600px"/>
+	</div>
+</body>

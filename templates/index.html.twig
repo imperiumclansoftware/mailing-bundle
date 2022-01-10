@@ -37,8 +37,10 @@
                             <td>
                                 <div class="btn-group float-end">
                                     <a href="{{ path('ics-mailing-test',{ model : modele.id}) }}" class="btn btn-secondary"><i class="fa fa-envelope"></i></a>
+									<a href="{{ path('ics-mailing-model-useredit',{model : modele.id,user: true}) }}" class="btn btn-secondary"><i class="fa fa-user-edit"></i></a>
 									<a href="{{ path('ics-mailing-model-edit',{ model : modele.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ path('ics-mailing-model-delete',{ model : modele.id}) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+									<a href="{{ path('ics-mailing-model-delete',{ model : modele.id}) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+									
                                 </div>
                             </td>
 						</tr>

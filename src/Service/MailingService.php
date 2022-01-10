@@ -26,7 +26,7 @@ class MailingService
     function sendMail(MailModele $model, array $vars = [], $receivers = [], $copyReceivers = [], $cacheCopyReceivers = [])
     {
         $email = (new Email())
-            ->from(new Address($model->getSender()));
+            ->from(new Address($model->getSender(),$model->getSenderName()));
 
         $vars = $model->renderVars($vars);
 
@@ -75,7 +75,7 @@ class MailingService
             ->subject($model->getSubject())
             ->html($this->twig->render($model->getTemplate()->getTwig(), $vars));
 
-        //->attachFromPath($this->kernel->getProjectDir().'/public/medias/attachement_1.jpg','attachement_1')
+        $email->attachFromPath($this->kernel->getProjectDir().'/public/medias/attachement_1.jpg','attachement_1');
 
         $this->mailer->send($email);
     }

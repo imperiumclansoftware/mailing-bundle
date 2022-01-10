@@ -5,7 +5,6 @@ use Twig\Node\Expression\NameExpression;
 use Twig\Environment;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -76,6 +75,10 @@ class MailModele
      * @ORM\Column(type="string", nullable=true)
      */
     private $replyTo;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $senderName = '';
 
     public function __construct()
     {
@@ -411,6 +414,26 @@ class MailModele
     public function setReplyTo($replyTo)
     {
         $this->replyTo = $replyTo;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of senderName
+     */ 
+    public function getSenderName()
+    {
+        return $this->senderName;
+    }
+
+    /**
+     * Set the value of senderName
+     *
+     * @return  self
+     */ 
+    public function setSenderName($senderName)
+    {
+        $this->senderName = $senderName;
 
         return $this;
     }

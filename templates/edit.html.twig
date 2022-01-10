@@ -18,25 +18,34 @@
 			<li class="nav-item">
 				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#text">Text Format</a>
 			</li>
+			{% if form.priority is defined or form.replyTo is defined %}
 			<li class="nav-item">
 				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#options">Options</a>
 			</li>
+			{% endif %}
 		</ul>
 		{{  form_start(form) }}
-		<div class="tab-content">
-			<div class="tab-pane fade show active" id="base" role="tabpanel">
+		<div class="tab-content mb-3">
+			<div class="tab-pane fade show active border-bottom border-start border-end p-3" id="base" role="tabpanel">
 				<div class="row">
-					<div class="col-6">
-						{{  form_row(form.template) }}
-					</div>
-					<div class="col-6">
+					{% if form.template is defined %}
+						<div class="col-12 col-md-6">
+							{{  form_row(form.template) }}
+						</div>
+					{% endif %}
+					<div class="col-12 col-md-6">
 						{{  form_row(form.subject) }}
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-12">
-						{{  form_row(form.sender) }}
+					<div class="col-12 col-md-6">
+						{{  form_row(form.senderName) }}	
 					</div>
+					{% if form.template is defined %}
+						<div class="col-12 col-md-6">
+							{{  form_row(form.sender) }}
+						</div>
+					{% endif %}
 				</div>
 				<div class="row">
 					<div class="col-12">
@@ -44,7 +53,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="html" role="tabpanel">
+			<div class="tab-pane fade border-bottom border-start border-end p-3" id="html" role="tabpanel">
 				<div class="row">
 					<div class="col-12">
 						{{  form_row(form.title) }}
@@ -59,23 +68,29 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="text" role="tabpanel">
+			<div class="tab-pane fade border-bottom border-start border-end p-3" id="text" role="tabpanel">
 				<div class="row">
 					<div class="col-12">
 						{{  form_row(form.text)}}
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="options" role="tabpanel">
-				<div class="row">
-					<div class="col-6">
-						{{ form_row(form.priority) }}
-					</div>
-					<div class="col-6">
-						{{ form_row(form.replyTo) }}
+			{% if form.priority is defined or form.replyTo is defined %}
+				<div class="tab-pane fade border-bottom border-start border-end p-3" id="options" role="tabpanel">
+					<div class="row">
+						{% if form.priority is defined %}
+							<div class="col-12 col-md-6">
+								{{ form_row(form.priority) }}
+							</div>
+						{% endif %}
+						{% if form.replyTo is defined %}
+							<div class="col-12 col-md-6">
+								{{ form_row(form.replyTo) }}
+							</div>
+						{% endif %}
 					</div>
 				</div>
-			</div>
+			{% endif %}
 		</div>
 
 

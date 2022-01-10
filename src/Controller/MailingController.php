@@ -33,14 +33,19 @@ class MailingController extends AbstractController
     /**
      * @Route("/add",name="ics-mailing-model-add")
      * @Route("/edit/{model}",name="ics-mailing-model-edit")
+     * @Route("/useredit/{model}/{user}",name="ics-mailing-model-useredit")
      */
-    public function edit(Request $request, EntityManagerInterface $em, Environment $twig, MailModele $model = null)
+    public function edit(Request $request, EntityManagerInterface $em, Environment $twig, MailModele $model = null,$user=false)
     {
         if ($model == null) {
             $model = new MailModele();
         }
-
-        $form = $this->createForm(MailModeleType::class, $model);
+        $type=MailModeleType::FULL;
+        if($user)
+        {
+            $type=MailModeleType::USER;
+        }
+        $form = $this->createForm(MailModeleType::class, $model,['formType' => $type]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,13 +88,15 @@ class MailingController extends AbstractController
         $service->sendMail(
             $model,
             [
-                'username' => $this->getUser()
+                'username' => $this->getUser(),
+                'bgColor' => '#a7c0ff'
             ],
             [
                 $this->getUser()->getEmail()
             ],
         );
 
+        return $this->redirectToRoute('ics-mailing-homepage');
         return $this->render('@Mailing/test.html.twig',[
           //  'form' => $form->createView()
         ]);
