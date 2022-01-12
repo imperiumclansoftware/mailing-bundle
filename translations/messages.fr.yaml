@@ -15,3 +15,5 @@ Low: Basse
 Lowest: La plus basse
 Reply To: Répondre à
 Path to twig file: Chemin du fichier twig
+ROLE_MAILING_USER: Utilisateurs des Emails
+ROLE_MAILING_ADMIN: Administarteurs des Emails
