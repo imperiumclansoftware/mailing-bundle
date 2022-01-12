@@ -1,0 +1,30 @@
+Mailing management: Gestion des Emails
+Modeles: Modèles
+Modele are data configuration of mail. It's based on data can be configure by user.: Les modèles sont la configuration des données des Emails. Ils peuvent êtres configurés par l'utilisateur.
+Manage modeles: Gérer les modèles
+Templates: Apparences
+Template are graphical appearence of mail. It's based on a twig template.: Les apparences sont la partie graphique des Emails. Ils sont basés sur un fichier twig.
+Manage template: Gérer les apparences
+Mail modele list: Liste des modèles de mails
+Add: Ajouter
+Title: Titre
+Subject: Objet
+Sender: Expediteur
+Template: Apparence
+Vars: Variables
+Test by sending this modele: Tester en envoyant ce modèle
+Show user configuration: Voir la configuration pour l'utilisateur
+Edit this modele: Modifier ce modèle
+Delete this modele: Supprimer ce modèle
+Base config: Configuration de base
+HTML Format: Format HTML
+Text Format: Format texte
+Options: Options
+Record: Enregistrer
+Add mail modele: Ajouter un modèle de mail
+Edit mail modele: Modifier le modèle de mail
+Edit template: Modifier l'apparence
+Add template: Ajouter une apparence
+Mail templates: Apparences des Emails
+Path to twig file: Chemin du fichier twig
+Name: Nom

@@ -19,7 +19,7 @@ class MailTemplateType extends AbstractType
                 'label' => 'Name'
             ])
             ->add('twig', TextType::class,[
-                'label' => 'Path to twig'
+                'label' => 'Path to twig file'
             ])
         ;
     }

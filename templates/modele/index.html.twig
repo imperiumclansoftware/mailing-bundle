@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-
+{% trans_default_domain('mailing') %}
 {% block body %}
 	<div class="container-fluid mt-3">
 		<div class="row">
@@ -7,20 +7,20 @@
 				<div class="btn-group float-end">
 					<a href="{{ path('ics-mailing-model-add') }}" class="btn btn-primary">
 						<i class="fa fa-plus"></i>
-						Ajouter</a>
+						{% trans %}Add{% endtrans %}</a>
 				</div>
-                <h1><i class="fa fa-list"></i> Mail modele list</h1>
+                <h1><i class="fas fa-mail-bulk"></i> {% trans %}Mail modele list{% endtrans %}</h1>
 			</div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-12">
 				<table class="table">
 					<tr class="bg-dark text-light">
-						<th>Title</th>
-						<th>Subject</th>
-                        <th>Sender</th>
-                        <th>Template</th>
-						<th>Variables</th>
+						<th>{% trans %}Title{% endtrans %}</th>
+						<th>{% trans %}Subject{% endtrans %}</th>
+                        <th>{% trans %}Sender{% endtrans %}</th>
+                        <th>{% trans %}Template{% endtrans %}</th>
+						<th>{% trans %}Vars{% endtrans %}</th>
                         <th></th>
 					</tr>
 					{% for modele in modeles %}
@@ -36,10 +36,10 @@
 							</td>
                             <td>
                                 <div class="btn-group float-end">
-                                    <a href="{{ path('ics-mailing-modele-test',{ model : modele.id}) }}" class="btn btn-secondary btn-sm"><i class="fa fa-envelope"></i></a>
-									<a href="{{ path('ics-mailing-model-useredit',{model : modele.id,user: true}) }}" class="btn btn-secondary btn-sm"><i class="fa fa-user-edit"></i></a>
-									<a href="{{ path('ics-mailing-model-edit',{ model : modele.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-									<a href="{{ path('ics-mailing-model-delete',{ model : modele.id}) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    <a href="{{ path('ics-mailing-modele-test',{ model : modele.id}) }}" class="btn btn-secondary btn-sm" title="{% trans %}Test by sending this modele{% endtrans %}"><i class="fa fa-envelope"></i></a>
+									<a href="{{ path('ics-mailing-model-useredit',{model : modele.id,user: true}) }}" class="btn btn-secondary btn-sm" title="{% trans %}Show user configuration{% endtrans %}"><i class="fa fa-user-edit"></i></a>
+									<a href="{{ path('ics-mailing-model-edit',{ model : modele.id}) }}" class="btn btn-warning btn-sm" title="{% trans %}Edit this modele{% endtrans %}"><i class="fa fa-edit"></i></a>
+									<a href="{{ path('ics-mailing-model-delete',{ model : modele.id}) }}" class="btn btn-danger btn-sm" title="{% trans %}Delete this modele{% endtrans %}"><i class="fa fa-trash"></i></a>
 									
                                 </div>
                             </td>

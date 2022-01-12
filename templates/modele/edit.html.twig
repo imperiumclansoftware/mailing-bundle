@@ -1,26 +1,33 @@
 {% extends "base.html.twig" %}
+{% trans_default_domain('mailing') %}
 {% block body %}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
 				<h1>
+				{% if model.title == "" %}
 					<i class="fa fa-plus"></i>
-					Add mail modele</h1>
+					{% trans %}Add mail modele{% endtrans %}</h1>
+				{% else %}
+					<i class="fa fa-edit"></i>
+					{% trans %}Edit mail modele{% endtrans %} <small class="text-info">{{ model.title }}</small></h1>
+				{% endif %}
+					
 			</div>
 		</div>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-				<a class="nav-link active" data-bs-toggle="tab" data-bs-target="#base">Base config</a>
+				<a class="nav-link active" data-bs-toggle="tab" data-bs-target="#base">{% trans %}Base config{% endtrans %}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#html">HTML Format</a>
+				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#html">{% trans %}HTML Format{% endtrans %}</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#text">Text Format</a>
+				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#text">{% trans %}Text Format{% endtrans %}</a>
 			</li>
 			{% if form.priority is defined or form.replyTo is defined %}
 			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#options">Options</a>
+				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#options">{% trans %}Options{% endtrans %}</a>
 			</li>
 			{% endif %}
 		</ul>
@@ -98,7 +105,7 @@
 			<div class="col-12 text-center">
 				<button class="btn btn-success" type="submit">
 					<i class="fa fa-save"></i>
-					Record</button>
+					{% trans %}Record{% endtrans %}</button>
 			</div>
 		</div>
 		{{  form_end(form) }}

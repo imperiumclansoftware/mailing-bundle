@@ -63,7 +63,8 @@ class ModeleController extends AbstractController
         }
 
         return $this->render('@Mailing/modele/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'model' => $model
         ]);
     }
 

@@ -35,6 +35,10 @@ class MailingExtension extends Extension implements PrependExtensionInterface
         if (isset($bundles['DoctrineBundle'])) {
             $loader->load('doctrine.yaml');
         }
+
+        if (isset($bundles['NavigationBundle'])) {
+            $loader->load('navigation.yaml');
+        }
         
     }
 

@@ -1,0 +1,6 @@
+security:
+    role_hierarchy:
+        ROLE_MAILING_USER: ~
+        ROLE_MAILING_ADMIN: [ROLE_MAILING_USER]
+        ROLE_ADMIN: [ROLE_MAILING_ADMIN]
+        

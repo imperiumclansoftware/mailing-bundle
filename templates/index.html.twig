@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+{% trans_default_domain('mailing') %}
 
 {% block body %}
 
@@ -7,7 +8,7 @@
 			<div class="col-12">
 				<h1>
 					<i class="fa fa-envelope"></i>
-					Mailing management</h1>
+					{% trans %}Mailing management{% endtrans %}</h1>
 			</div>
 		</div>
 		<div class="row mt-3">
@@ -16,12 +17,12 @@
 					<div class="card-body">
 						<div class="text-center">
 							<i class="fas fa-mail-bulk display-1 text-primary"></i>
-							<h3 class="card-title">Modeles</h3>
+							<h3 class="card-title">{% trans %}Modeles{% endtrans %}</h3>
 						</div>
-						<p class="card-text">Modele are data configuration of mail. It's based on data can be configure by user.</p>
+						<p class="card-text">{% trans %}Modele are data configuration of mail. It's based on data can be configure by user.{% endtrans %}</p>
 						<a href="{{ path('ics-mailing-modele-homepage') }}" class="btn btn-primary w-100">
 							<i class="fa fa-arrow-right"></i>
-							Manage modeles</a>
+							{% trans %}Manage modeles{% endtrans %}</a>
 					</div>
 				</div>
 			</div>
@@ -30,12 +31,12 @@
 					<div class="card-body">
 						<div class="text-center">
 							<i class="fas fa-palette display-1 text-info"></i>
-							<h3 class="card-title">Templates</h3>
+							<h3 class="card-title">{% trans %}Templates{% endtrans %}</h3>
 						</div>
-						<p class="card-text">Template are graphical appearence of mail. It's based on a twig template.</p>
+						<p class="card-text">{% trans %}Template are graphical appearence of mail. It's based on a twig template.{% endtrans %}</p>
 						<a href="{{ path('ics-mailing-template-homepage') }}" class="btn btn-primary w-100">
 							<i class="fa fa-arrow-right"></i>
-							Manage template</a>
+							{% trans %}Manage template{% endtrans %}</a>
 					</div>
 				</div>
 			</div>

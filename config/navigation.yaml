@@ -1,0 +1,9 @@
+navigation:
+  navbars:
+    main:
+      items:
+        mailing:
+          lib: Mailing
+          icon: fa fa-envelope
+          route: ics-mailing-homepage
+          roles: ['ROLE_MAILING_ADMIN']

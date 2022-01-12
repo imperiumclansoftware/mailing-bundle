@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-
+{% trans_default_domain('mailing') %}
 {% block body %}
 	<div class="container-fluid">
 		<div class="row">
@@ -7,11 +7,11 @@
 				<h1>
 					{% if template.name != '' %}
 						<i class="fa fa-edit"></i>
-						Edit template
+						{% trans %}Edit template{% endtrans %}
 						<small class="text-info">{{ template.name }}</small>
 					{% else %}
 						<i class="fa fa-plus"></i>
-						Add template
+						{% trans %}Add template{% endtrans %}
 					{% endif %}
 				</h1>
 			</div>
@@ -25,7 +25,7 @@
 				<div class="col-12 text-center">
 					<button class="btn btn-success" type="submit">
 						<i class="fa fa-save"></i>
-						Record</button>
+						{% trans %}Record{% endtrans %}</button>
 				</div>
 			</div>
 			{{ form_end(form) }}

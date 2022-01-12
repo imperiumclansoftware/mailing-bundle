@@ -1,0 +1,17 @@
+Template: Apparence
+Subject: Objet
+Sender name: Nom de l'expediteur
+Sender: Expediteur
+user@example.com: utilisateur@exemple.fr
+Logo: Logo
+Title: Titre
+Signature: Signature
+Text format: Format texte
+Priority: Priorité
+Normal: Normale
+High: Haute
+Highest: La plus haute
+Low: Basse
+Lowest: La plus basse
+Reply To: Répondre à
+Path to twig file: Chemin du fichier twig
