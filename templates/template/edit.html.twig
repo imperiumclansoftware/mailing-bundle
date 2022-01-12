@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 col-md-6 offset-md-3">
+				<h1>
+					{% if template.name != '' %}
+						<i class="fa fa-edit"></i>
+						Edit template
+						<small class="text-info">{{ template.name }}</small>
+					{% else %}
+						<i class="fa fa-plus"></i>
+						Add template
+					{% endif %}
+				</h1>
+			</div>
+		</div>
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col-12 col-md-6 offset-md-3">
+				{{ form_widget(form) }}
+			</div>
+			<div class="row">
+				<div class="col-12 text-center">
+					<button class="btn btn-success" type="submit">
+						<i class="fa fa-save"></i>
+						Record</button>
+				</div>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

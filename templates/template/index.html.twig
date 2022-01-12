@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<div class="container-fluid mt-3">
+		<div class="row">
+			<div class="col-12">
+                <div class="btn-group float-end">
+                    <a href="{{ path('ics-mailing-template-add') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
+                </div>
+				<h1>
+					<i class="fa fa-envelope"></i>
+					Mail templates</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table class="table">
+                    <tr class="bg-dark text-light">
+                        <th>Name</th>
+                        <th>Twig path</th>
+                        <th></th>
+                    </tr>
+                    {% for template in templates %}
+                        <tr>
+                            <td class="">{{ template.name }}</td>
+                            <td class="">{{ template.twig }}</td>
+                            <td>
+                                <div class="btn-group float-end">
+                                    <a href="{{ path('ics-mailing-template-edit', { template: template.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ path('ics-mailing-template-delete', { template: template.id}) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

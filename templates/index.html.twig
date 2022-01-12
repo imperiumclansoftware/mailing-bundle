@@ -1,51 +1,44 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-	<div class="container-fluid mt-3">
-		<div class="row">
+
+	<div class="container-fluid">
+		<div class="row mt-3">
 			<div class="col-12">
-				<div class="btn-group float-end">
-					<a href="{{ path('ics-mailing-model-add') }}" class="btn btn-primary">
-						<i class="fa fa-plus"></i>
-						Ajouter</a>
-				</div>
-                <h1><i class="fa fa-list"></i> Mail modele list</h1>
+				<h1>
+					<i class="fa fa-envelope"></i>
+					Mailing management</h1>
 			</div>
 		</div>
 		<div class="row mt-3">
-			<div class="col-12">
-				<table class="table">
-					<tr class="bg-dark text-light">
-						<th>Title</th>
-						<th>Subject</th>
-                        <th>Sender</th>
-                        <th>Template</th>
-						<th>Variables</th>
-                        <th></th>
-					</tr>
-					{% for modele in modeles %}
-						<tr>
-							<td>{{ modele.title }}</td>
-							<td>{{ modele.subject }}</td>
-                            <td>{{ modele.sender }}</td>
-                            <td>{{ modele.template.name }}</td>
-							<td>
-								{% for var in modele.vars %}
-									<div class="badge bg-info text-light">{{ var }}</div>
-								{% endfor %}
-							</td>
-                            <td>
-                                <div class="btn-group float-end">
-                                    <a href="{{ path('ics-mailing-test',{ model : modele.id}) }}" class="btn btn-secondary"><i class="fa fa-envelope"></i></a>
-									<a href="{{ path('ics-mailing-model-useredit',{model : modele.id,user: true}) }}" class="btn btn-secondary"><i class="fa fa-user-edit"></i></a>
-									<a href="{{ path('ics-mailing-model-edit',{ model : modele.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-									<a href="{{ path('ics-mailing-model-delete',{ model : modele.id}) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-									
-                                </div>
-                            </td>
-						</tr>
-					{% endfor %}
-				</table>
+			<div class="col-12 col-md-3 offset-md-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="text-center">
+							<i class="fas fa-mail-bulk display-1 text-primary"></i>
+							<h3 class="card-title">Modeles</h3>
+						</div>
+						<p class="card-text">Modele are data configuration of mail. It's based on data can be configure by user.</p>
+						<a href="{{ path('ics-mailing-modele-homepage') }}" class="btn btn-primary w-100">
+							<i class="fa fa-arrow-right"></i>
+							Manage modeles</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="text-center">
+							<i class="fas fa-palette display-1 text-info"></i>
+							<h3 class="card-title">Templates</h3>
+						</div>
+						<p class="card-text">Template are graphical appearence of mail. It's based on a twig template.</p>
+						<a href="{{ path('ics-mailing-template-homepage') }}" class="btn btn-primary w-100">
+							<i class="fa fa-arrow-right"></i>
+							Manage template</a>
+					</div>
+				</div>
 			</div>
 		</div>
+
 	{% endblock %}
