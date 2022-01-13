@@ -53,7 +53,9 @@ class MailModeleType extends AbstractType
                 'label' => 'Template',
                 'required' => true
             ])
-            
+            ->add('code', TextType::class, [
+                'label' => 'Code',
+            ])
             ->add('sender', EmailType::class, [
                 'label' => 'Sender',
                 'attr' => [

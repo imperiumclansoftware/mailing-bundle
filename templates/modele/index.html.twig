@@ -16,6 +16,7 @@
 			<div class="col-12">
 				<table class="table">
 					<tr class="bg-dark text-light">
+						<th>{% trans %}Code{% endtrans %}</th>
 						<th>{% trans %}Title{% endtrans %}</th>
 						<th>{% trans %}Subject{% endtrans %}</th>
                         <th>{% trans %}Sender{% endtrans %}</th>
@@ -25,6 +26,7 @@
 					</tr>
 					{% for modele in modeles %}
 						<tr>
+							<td>{{ modele.code }}</td>
 							<td>{{ modele.title }}</td>
 							<td>{{ modele.subject }}</td>
                             <td>{{ modele.sender }}</td>

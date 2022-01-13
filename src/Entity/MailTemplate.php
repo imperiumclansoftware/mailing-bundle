@@ -1,8 +1,9 @@
 <?php
 namespace ICS\MailingBundle\Entity;
 
+use Twig\Node\Expression\NameExpression;
+use Twig\Environment;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -30,6 +31,8 @@ class MailTemplate
      * @var string
      */
     private $twig;
+
+    private $vars=[];
 
     /**
      * Get the value of twig
@@ -98,5 +101,55 @@ class MailTemplate
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function updateVars(Environment $twig)
+    {
+        $template = $twig->load($this->getTwig())->getSourceContext();
+        $nodes=$twig->parse($twig->tokenize($template));
+        foreach($this->parseTwigNodes($nodes) as $var)
+        {
+            if(!in_array($var,$this->vars))
+            {
+                $this->vars[]=$var;
+            }
+        }
+    }
+
+    private function parseTwigNodes($nodes)
+    {
+        $vars=[];
+        foreach($nodes as $node)
+        {
+            if($node instanceof NameExpression)
+            {
+                $vars[]=$node->getAttribute('name');   
+            }
+            else
+            {
+                $vars = array_merge($vars,$this->parseTwigNodes($node));
+            }
+        }
+        return $vars;
+    }
+
+    /**
+     * Get the value of vars
+     */ 
+    public function getVars()
+    {
+        return $this->vars;
+    }
+
+    /**
+     * Set the value of vars
+     *
+     * @return  self
+     */ 
+    public function setVars($vars)
+    {
+        $this->vars = $vars;
+
+        return $this;
     }
 }

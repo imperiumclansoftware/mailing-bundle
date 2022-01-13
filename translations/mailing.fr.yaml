@@ -28,3 +28,11 @@ Add template: Ajouter une apparence
 Mail templates: Apparences des Emails
 Path to twig file: Chemin du fichier twig
 Name: Nom
+Preview of template: Aperçu de l'apparence
+Template Vars: Variables de l'apparence
+Modele Vars: Variables du modèle
+Preview: Aperçu
+logo: Logo
+title: Titre
+signature: Signature
+content: Contenu

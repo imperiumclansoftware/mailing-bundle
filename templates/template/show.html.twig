@@ -1,0 +1,98 @@
+{% extends "base.html.twig" %}
+{% trans_default_domain('mailing') %}
+{% set varModele = "" %}
+{% set varTemplate = "" %}
+
+{% for var in template.vars %}
+    {% if var in ['title','content','signature','logo'] %}
+        {% set varModele %}
+        {{ varModele }}
+        <div class="form-group">
+            <label>{{ var|trans }}</label>
+            {% if var in ['content','signature'] %}
+                <textarea class="form-control" name="{{ var }}"></textarea>
+            {% else %}
+                <input class="form-control" type="text" name="{{ var }}"/>    
+            {% endif %}
+            
+        </div>
+        {% endset %}
+    {% else %}
+        {% set varTemplate %}
+        {{ varTemplate }}
+        <div class="form-group">
+            <label>{{ var|trans }}</label>
+            <input class="form-control" type="text" name="{{ var }}"/>
+        </div>
+        {% endset %}
+    {% endif %}
+{% endfor %}
+
+{% block body %}
+
+	<div class="container-fluid">
+		<div class="row mt-3">
+			<div class="col-12">
+                <h1><i class="fa fa-eye"></i> {% trans %}Preview of template{% endtrans %} <small class="text-info">{{ template.name }}</small></h1>
+            </div>
+        </div>
+        <div class="row mt-3">
+			<div class="col-12 col-md-4">
+            <div class="card border-dark">
+                <h4 class="card-header bg-dark text-light"><i class="fas fa-hashtag"></i> {% trans %}Vars{% endtrans %}</h4>
+                <div class="card-body">
+                    <fieldset>
+                    <legend>{% trans %}Template Vars{% endtrans %}</legend>
+                    {{ varTemplate }}
+                    </fieldset>
+                    <fieldset>
+                    <legend>{% trans %}Modele Vars{% endtrans %}</legend>
+                    {{ varModele }}
+                    </fieldset>
+                </div>
+                </div>
+			</div>
+            <div class="col-12 col-md-8">
+                <div class="card border-dark">
+                    <h4 class="card-header bg-dark text-light"><i class="fa fa-eye"></i> {% trans %}Preview{% endtrans %}</h4>
+                    <div id="preview" class="card-body "></div>
+                </div>
+            </div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script>
+
+		$( document ).ready( function () {
+
+            $( '.form-control' ).change(function(){
+                updatePreview();
+            });
+
+            updatePreview();
+
+        });
+
+        function updatePreview()
+        {
+                var vars = new Object();
+                $( '.form-control' ).each( function ( index, element ) {
+                    vars[$( element ).attr( 'name' )] = $( element ).val();
+                });
+                $('#preview').html('Chargement');
+                $.ajax({ 
+                    'url' : "{{ path('ics-mailing-template-preview',{template : template.id}) }}", 
+                    'method' : 'POST', 
+                    'data' : vars 
+                }).done(function ( data ) {
+                    $( '#preview' ).html( data );
+                });
+        }
+
+	</script>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 <style>
-    body {
+    .mail {
         background-color: {{bgColor|default('#000')}}
 		;
 		color: {{textColor|default('#fff')}}
@@ -27,23 +27,23 @@
 	}
 
 	hr {
-		border-color: {{bgColor}}
+		border-color: {{bgColor|default('#000')}}
 		;
 	}
 </style>
-<body>
+<div class="mail">
 	<div class="borderContent">
 		<h1 class="title">
-			{% if logo %}
+			{% if logo is defined and logo %}
 				<img src="{{ path(logo) }}" width="64px;"/>
 			{% endif %}
-			{{ title }}
+			{{ title|default('Title') }}
 		</h1>
 		<div class="content">
-			{{ content|raw }}
+			{{ content|default('Content')|raw }}
 			<hr/>
-			{{ signature|raw }}
+			{{ signature|default('Signature')|raw }}
 		</div>
-		<img src="cid:attachement_1" width="600px"/>
+		{# <img src="cid:attachement_1" width="600px"/> #}
 	</div>
-</body>
+</div>

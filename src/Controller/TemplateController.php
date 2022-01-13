@@ -23,13 +23,37 @@ class TemplateController extends AbstractController
     /**
      * @Route("/template",name="ics-mailing-template-homepage")
      */
-    public function index(EntityManagerInterface $em)
+    public function index(EntityManagerInterface $em,Environment $twig)
     {
         $templates = $em->getRepository(MailTemplate::class)->findAll();
+
+        foreach($templates as $template)
+        {
+            $template->updateVars($twig);
+        }
 
         return $this->render('@Mailing/template/index.html.twig', [
             'templates' => $templates
         ]);
+    }
+
+    /**
+     * @Route("/template/show/{template}",name="ics-mailing-template-show")
+     */
+    public function show(Request $request, Environment $twig, EntityManagerInterface $em, MailTemplate $template = null)
+    {
+        $template->updateVars($twig);
+        return $this->render('@Mailing/template/show.html.twig', [
+            'template' => $template
+        ]);
+    }
+
+    /**
+     * @Route("/template/preview/{template}",name="ics-mailing-template-preview")
+     */
+    public function preview(Request $request, Environment $twig, EntityManagerInterface $em, MailTemplate $template = null)
+    {
+        return $this->render($template->getTwig(),$request->request->all());
     }
 
     /**

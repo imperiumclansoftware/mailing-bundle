@@ -34,12 +34,29 @@
 							<h3 class="card-title">{% trans %}Templates{% endtrans %}</h3>
 						</div>
 						<p class="card-text">{% trans %}Template are graphical appearence of mail. It's based on a twig template.{% endtrans %}</p>
-						<a href="{{ path('ics-mailing-template-homepage') }}" class="btn btn-primary w-100">
+						<a href="{{ path('ics-mailing-template-homepage') }}" class="btn btn-info w-100">
 							<i class="fa fa-arrow-right"></i>
 							{% trans %}Manage template{% endtrans %}</a>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row mt-3">
+			<div class="col-12 col-md-3 offset-md-3">
+				<div class="card">
+					<div class="card-body">
+						<div class="text-center">
+							<i class="fas fa-shipping-fast display-1 text-secondary"></i>
+							<h3 class="card-title">{% trans %}Diffusion Group{% endtrans %}</h3>
+						</div>
+						<p class="card-text">{% trans %}Group of mail user for mailing diffusion.{% endtrans %}</p>
+						<a href="{{ path('ics-mailing-template-homepage') }}" class="btn btn-secondary w-100">
+							<i class="fa fa-arrow-right"></i>
+							{% trans %}Manage Groups{% endtrans %}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	{% endblock %}
+{% endblock %}

@@ -33,6 +33,12 @@ class MailModele
      * @var string
      */
     private $title;
+    /**
+     * @ORM\Column(type="string", length=50, nullable=false)
+     * 
+     * @var string
+     */
+    private $code="basic";
      /**
      * @ORM\Column(type="text", nullable=false)
      * 
@@ -434,6 +440,30 @@ class MailModele
     public function setSenderName($senderName)
     {
         $this->senderName = $senderName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of code
+     *
+     * @return  string
+     */ 
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set the value of code
+     *
+     * @param  string  $code
+     *
+     * @return  self
+     */ 
+    public function setCode(string $code)
+    {
+        $this->code = $code;
 
         return $this;
     }

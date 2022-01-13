@@ -84,10 +84,6 @@ class ModeleController extends AbstractController
      */
     public function test(MailingService $service, MailModele $model)
     {
-
-        //$form = $this->createForm(TestMailModelType::class,$model);
-        //$form = $this->createForm(UserMailModelType::class,$model);
-
         $service->sendMail(
             $model,
             [
@@ -99,9 +95,9 @@ class ModeleController extends AbstractController
             ],
         );
 
-        return $this->redirectToRoute('ics-mailing-homepage');
+        return $this->redirectToRoute('ics-mailing-modele-homepage');
         return $this->render('@Mailing/modele/test.html.twig',[
-          //  'form' => $form->createView()
+
         ]);
     }
 }

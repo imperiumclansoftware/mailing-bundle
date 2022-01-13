@@ -2,112 +2,116 @@
 {% trans_default_domain('mailing') %}
 {% block body %}
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row mt-3">
 			<div class="col-12">
 				<h1>
-				{% if model.title == "" %}
-					<i class="fa fa-plus"></i>
-					{% trans %}Add mail modele{% endtrans %}</h1>
+					{% if model.title == "" %}
+						<i class="fa fa-plus"></i>
+						{% trans %}Add mail modele{% endtrans %}</h1>
 				{% else %}
 					<i class="fa fa-edit"></i>
-					{% trans %}Edit mail modele{% endtrans %} <small class="text-info">{{ model.title }}</small></h1>
-				{% endif %}
-					
-			</div>
+					{% trans %}Edit mail modele{% endtrans %}
+					<small class="text-info">{{ model.title }}</small>
+				</h1>
+			{% endif %}
+
 		</div>
-		<ul class="nav nav-tabs">
-			<li class="nav-item">
-				<a class="nav-link active" data-bs-toggle="tab" data-bs-target="#base">{% trans %}Base config{% endtrans %}</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#html">{% trans %}HTML Format{% endtrans %}</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#text">{% trans %}Text Format{% endtrans %}</a>
-			</li>
-			{% if form.priority is defined or form.replyTo is defined %}
+	</div>
+	<ul class="nav nav-tabs mt-3">
+		<li class="nav-item">
+			<a class="nav-link active" data-bs-toggle="tab" data-bs-target="#base">{% trans %}Base config{% endtrans %}</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-bs-toggle="tab" data-bs-target="#html">{% trans %}HTML Format{% endtrans %}</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-bs-toggle="tab" data-bs-target="#text">{% trans %}Text Format{% endtrans %}</a>
+		</li>
+		{% if form.priority is defined or form.replyTo is defined %}
 			<li class="nav-item">
 				<a class="nav-link" data-bs-toggle="tab" data-bs-target="#options">{% trans %}Options{% endtrans %}</a>
 			</li>
-			{% endif %}
-		</ul>
-		{{  form_start(form) }}
-		<div class="tab-content mb-3">
-			<div class="tab-pane fade show active border-bottom border-start border-end p-3" id="base" role="tabpanel">
-				<div class="row">
-					{% if form.template is defined %}
-						<div class="col-12 col-md-6">
-							{{  form_row(form.template) }}
-						</div>
-					{% endif %}
-					<div class="col-12 col-md-6">
-						{{  form_row(form.subject) }}
-					</div>
-				</div>
+		{% endif %}
+	</ul>
+	{{  form_start(form) }}
+	<div class="tab-content mb-3">
+		<div class="tab-pane fade show active border-bottom border-start border-end p-3" id="base" role="tabpanel">
+			{% if form.template is defined %}
 				<div class="row">
 					<div class="col-12 col-md-6">
-						{{  form_row(form.senderName) }}	
+						{{  form_row(form.code) }}
 					</div>
-					{% if form.template is defined %}
-						<div class="col-12 col-md-6">
-							{{  form_row(form.sender) }}
-						</div>
-					{% endif %}
-				</div>
-				<div class="row">
-					<div class="col-12">
-						{{  form_row(form.logo) }}
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade border-bottom border-start border-end p-3" id="html" role="tabpanel">
-				<div class="row">
-					<div class="col-12">
-						{{  form_row(form.title) }}
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						{{  form_row(form.content) }}
-					</div>
-					<div class="col-12">
-						{{  form_row(form.signature) }}
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade border-bottom border-start border-end p-3" id="text" role="tabpanel">
-				<div class="row">
-					<div class="col-12">
-						{{  form_row(form.text)}}
-					</div>
-				</div>
-			</div>
-			{% if form.priority is defined or form.replyTo is defined %}
-				<div class="tab-pane fade border-bottom border-start border-end p-3" id="options" role="tabpanel">
-					<div class="row">
-						{% if form.priority is defined %}
-							<div class="col-12 col-md-6">
-								{{ form_row(form.priority) }}
-							</div>
-						{% endif %}
-						{% if form.replyTo is defined %}
-							<div class="col-12 col-md-6">
-								{{ form_row(form.replyTo) }}
-							</div>
-						{% endif %}
+					<div class="col-12 col-md-6">
+						{{  form_row(form.template) }}
 					</div>
 				</div>
 			{% endif %}
-		</div>
-
-
-		<div class="row">
-			<div class="col-12 text-center">
-				<button class="btn btn-success" type="submit">
-					<i class="fa fa-save"></i>
-					{% trans %}Record{% endtrans %}</button>
+			<div class="row">
+				<div class="col-12">
+					{{  form_row(form.subject) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-6">
+					{{  form_row(form.senderName) }}
+				</div>
+				{% if form.template is defined %}
+					<div class="col-12 col-md-6">
+						{{  form_row(form.sender) }}
+					</div>
+				{% endif %}
 			</div>
 		</div>
-		{{  form_end(form) }}
+		<div class="tab-pane fade border-bottom border-start border-end p-3" id="html" role="tabpanel">
+			<div class="row">
+				<div class="col-12 col-md-3">
+					{{  form_row(form.logo) }}
+				</div>
+				<div class="col-12 col-md-9">
+					{{  form_row(form.title) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					{{  form_row(form.content) }}
+				</div>
+				<div class="col-12">
+					{{  form_row(form.signature) }}
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade border-bottom border-start border-end p-3" id="text" role="tabpanel">
+			<div class="row">
+				<div class="col-12">
+					{{  form_row(form.text)}}
+				</div>
+			</div>
+		</div>
+		{% if form.priority is defined or form.replyTo is defined %}
+			<div class="tab-pane fade border-bottom border-start border-end p-3" id="options" role="tabpanel">
+				<div class="row">
+					{% if form.priority is defined %}
+						<div class="col-12 col-md-6">
+							{{ form_row(form.priority) }}
+						</div>
+					{% endif %}
+					{% if form.replyTo is defined %}
+						<div class="col-12 col-md-6">
+							{{ form_row(form.replyTo) }}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
 	</div>
-{% endblock %}
+
+
+	<div class="row">
+		<div class="col-12 text-center">
+			<button class="btn btn-success" type="submit">
+				<i class="fa fa-save"></i>
+				{% trans %}Record{% endtrans %}</button>
+		</div>
+	</div>
+	{{  form_end(form) }}
+</div>{% endblock %}

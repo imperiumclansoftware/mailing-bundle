@@ -19,6 +19,7 @@
                     <tr class="bg-dark text-light">
                         <th>{% trans %}Name{% endtrans %}</th>
                         <th>{% trans %}Path to twig file{% endtrans %}</th>
+                        <th>{% trans %}Vars{% endtrans %}</th>
                         <th></th>
                     </tr>
                     {% for template in templates %}
@@ -26,7 +27,13 @@
                             <td class="">{{ template.name }}</td>
                             <td class="">{{ template.twig }}</td>
                             <td>
+                                {% for var in template.vars %}
+                                    <div class="badge bg-info">{{ var }}</div>
+                                {% endfor %}
+                            </td>
+                            <td>
                                 <div class="btn-group float-end">
+                                    <a href="{{ path('ics-mailing-template-show', { template: template.id}) }}" class="btn btn-secondary btn-sm"><i class="fa fa-eye"></i></a>
                                     <a href="{{ path('ics-mailing-template-edit', { template: template.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                     <a href="{{ path('ics-mailing-template-delete', { template: template.id}) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                 </div>
