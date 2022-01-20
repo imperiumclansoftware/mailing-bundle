@@ -5,11 +5,12 @@ namespace ICS\MailingBundle\Controller;
 use Twig\Node\Expression\NameExpression;
 use Twig\Environment;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use ICS\MailingBundle\Service\MailingService;
 
+use ICS\MailingBundle\Service\MailingService;
 use ICS\MailingBundle\Form\Type\MailTemplateType;
 use ICS\MailingBundle\Form\Type\MailModeleType;
 use ICS\MailingBundle\Entity\MailTemplate;
@@ -82,22 +83,32 @@ class ModeleController extends AbstractController
     /**
      * @Route("/modele/test/{model}",name="ics-mailing-modele-test")
      */
-    public function test(MailingService $service, MailModele $model)
+    public function test(EntityManagerInterface $em,MailingService $service,KernelInterface $kernel, MailModele $model)
     {
+        $classes = $service->getMailUserClass();
+
+        foreach($classes as $class)
+        {
+            $user=$em->getRepository($class)->findOneBy(['account' => $this->getUser()]);
+        }
+        
+
         $service->sendMail(
             $model,
             [
-                'username' => $this->getUser(),
+                'username' => $user->getMailName(),
                 'bgColor' => '#a7c0ff'
             ],
             [
-                $this->getUser()->getEmail()
+                $user->getMailName() => $user->getMail()
             ],
+            // Pour ajouter des pièces jointes
+            // [
+            //     $kernel->getProjectDir().'/public/Transfert article.docx'
+            // ]
         );
 
         return $this->redirectToRoute('ics-mailing-modele-homepage');
-        return $this->render('@Mailing/modele/test.html.twig',[
-
-        ]);
+        //return $this->render('@Mailing/modele/test.html.twig',[]);
     }
 }
